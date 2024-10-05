@@ -42,7 +42,7 @@ posts = [
                 Весь этот день я хлопотал  около вещей: укрывал и
                 укутывал их, чтобы не испортились от дождя.''',
     },
-] 
+]
 
 key_lookup = {
     0: posts[0],
@@ -50,19 +50,22 @@ key_lookup = {
     2: posts[2]
 }
 
+
 # Create your views here.
 def index(request):
-    return render(request, 'blog/index.html', 
+    return render(request, 'blog/index.html',
                   {'posts': reversed(posts)})
+
 
 def post_detail(request, post_id):
 
     if post_id in key_lookup:
-        return render(request, 'blog/detail.html', 
+        return render(request, 'blog/detail.html',
                       {'post': key_lookup[post_id]})
 
     return Http404(f"Пост с ключом {post_id} не существует")
 
+
 def category_posts(request, category):
     return render(request, 'blog/category.html',
-                   {'category': category})
+                  {'category': category})
