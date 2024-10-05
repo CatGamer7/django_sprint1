@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404
 
 posts = [
     {
@@ -43,12 +44,25 @@ posts = [
     },
 ] 
 
+key_lookup = {
+    0: posts[0],
+    1: posts[1],
+    2: posts[2]
+}
+
 # Create your views here.
 def index(request):
-    return render('index.html')
+    return render(request, 'blog/index.html', 
+                  {'posts': reversed(posts)})
 
-def post_detail(request, pk):
-    return render('detail.html')
+def post_detail(request, post_id):
+
+    if post_id in key_lookup:
+        return render(request, 'blog/detail.html', 
+                      {'post': key_lookup[post_id]})
+
+    return Http404(f"Пост с ключом {post_id} не существует")
 
 def category_posts(request, category):
-    return render('category.html')
+    return render(request, 'blog/category.html',
+                   {'category': category})

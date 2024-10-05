@@ -1,0 +1,9 @@
+{% extends 'header_base.html' %}
+
+{% block feed %}
+  <li class="nav-item active">
+    <a class="nav-link" href="{% url 'blog:index' %}">
+      Лента записей
+    </a>
+  </li>
+{% endblock %}
